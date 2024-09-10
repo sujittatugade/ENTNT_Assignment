@@ -1,2 +1,2 @@
 # ReadMe
-Welcome to the IMDb Clone Website project! This is a web application that mimics the functionality and design of IMDb (Internet Movie Database). Built using React, this application allows users to browse movies, search for specific titles, view movie details, and more.
+This IMDB clone is a React-based web application designed to mimic the core features of IMDb. It allows users to browse and manage their personalized movie watchlist. The app is styled using Tailwind CSS for responsive and modern UI components and utilizes Axios to fetch movie data dynamically from an external API (such as The Movie Database API).This project is a great demonstration of front-end development skills, API integration, and UI/UX design principles.
