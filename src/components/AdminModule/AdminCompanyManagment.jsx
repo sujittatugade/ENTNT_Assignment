@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const AdminCompanyManagement = () => {
-  // States to manage company data and form inputs
   const [companies, setCompanies] = useState([]);
   const [newCompany, setNewCompany] = useState({
     name: "",
@@ -17,44 +16,34 @@ const AdminCompanyManagement = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Predefined values for dropdowns
   const companyNames = ["HCL", "TCS", "Wipro", "DXC", "Infosys"];
   const locations = ["Pune", "Mumbai", "Bangalore"];
   const periodicityUnits = ["days", "weeks", "months"];
 
-  // Load companies from localStorage on component mount
   useEffect(() => {
     const savedCompanies = JSON.parse(localStorage.getItem("companies")) || [];
     setCompanies(savedCompanies);
   }, []);
 
-  // Save updated company data to localStorage
   const saveCompanies = (updatedCompanies) => {
     localStorage.setItem("companies", JSON.stringify(updatedCompanies));
     setCompanies(updatedCompanies);
   };
 
-  // Validate the input fields of the form
   const validateFields = () => {
     const newErrors = {};
 
-    // Validation for company name
-    if (!newCompany.name) {
-      newErrors.name = "Company name is required.";
-    }
-
-    // Validation for company location
-    if (!newCompany.location) {
-      newErrors.location = "Location is required.";
-    }
-
-    // Validation for email format
-    if (newCompany.emails && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}(, *[\w-.]+@([\w-]+\.)+[\w-]{2,4})*$/.test(newCompany.emails)) {
+    if (!newCompany.name) newErrors.name = "Company name is required.";
+    if (!newCompany.location) newErrors.location = "Location is required.";
+    if (!newCompany.linkedIn) newErrors.linkedIn = "LinkedIn profile is required.";
+    if (!newCompany.emails) {
+      newErrors.emails = "Email(s) cannot be empty.";
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}(, *[\w-.]+@([\w-]+\.)+[\w-]{2,4})*$/.test(newCompany.emails)) {
       newErrors.emails = "Please enter valid email(s). Use commas for multiple emails.";
     }
-
-    // Validation for phone numbers format
-    if (newCompany.phoneNumbers && !/^\d{10}(, *\d{10})*$/.test(newCompany.phoneNumbers)) {
+    if (!newCompany.phoneNumbers) {
+      newErrors.phoneNumbers = "Phone number(s) cannot be empty.";
+    } else if (!/^\d{10}(, *\d{10})*$/.test(newCompany.phoneNumbers)) {
       newErrors.phoneNumbers = "Please enter valid phone number(s). Use commas for multiple numbers.";
     }
 
@@ -62,19 +51,15 @@ const AdminCompanyManagement = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Add a new company to the list
   const addCompany = () => {
-    if (!validateFields()) {
-      return; // Exit if validation fails
-    }
+    if (!validateFields()) return;
 
     const updatedCompanies = [
       ...companies,
-      { ...newCompany, id: Date.now() }, // Add company with unique ID
+      { ...newCompany, id: Date.now() },
     ];
     saveCompanies(updatedCompanies);
 
-    // Reset form fields after successful addition
     setNewCompany({
       name: "",
       location: "",
@@ -87,7 +72,6 @@ const AdminCompanyManagement = () => {
     setErrors({});
   };
 
-  // Delete a company from the list
   const deleteCompany = (id) => {
     const updatedCompanies = companies.filter((company) => company.id !== id);
     saveCompanies(updatedCompanies);
@@ -99,13 +83,11 @@ const AdminCompanyManagement = () => {
       <div className="admin-module mt-2">
         <h1 className="text-xl text-center font-bold mb-4">Company Management</h1>
       </div>
-      
+
       <div className="admin-module p-4 border border-gray-300 rounded-md">
-        {/* Add Company Form */}
         <div className="mb-4">
           <h2 className="text-lg font-semibold mb-2">Add New Company</h2>
 
-          {/* Company Name Dropdown or Custom Input */}
           <div className="mb-2">
             <select
               value={newCompany.name}
@@ -129,7 +111,6 @@ const AdminCompanyManagement = () => {
             {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
 
-          {/* Location Dropdown or Custom Input */}
           <div className="mb-2">
             <select
               value={newCompany.location}
@@ -153,7 +134,6 @@ const AdminCompanyManagement = () => {
             {errors.location && <p className="text-red-500">{errors.location}</p>}
           </div>
 
-          {/* LinkedIn, Emails, Phone Numbers, Comments Inputs */}
           <input
             type="text"
             placeholder="LinkedIn Profile"
@@ -161,6 +141,8 @@ const AdminCompanyManagement = () => {
             onChange={(e) => setNewCompany({ ...newCompany, linkedIn: e.target.value })}
             className="border px-2 py-1 mt-2 mr-2"
           />
+          {errors.linkedIn && <p className="text-red-500">{errors.linkedIn}</p>}
+
           <input
             type="text"
             placeholder="Emails"
@@ -186,7 +168,6 @@ const AdminCompanyManagement = () => {
             className="border px-2 py-1 mr-2"
           />
 
-          {/* Periodicity Fields */}
           <div className="flex items-center mt-2">
             <input
               type="number"
@@ -218,7 +199,6 @@ const AdminCompanyManagement = () => {
             </select>
           </div>
 
-          {/* Add Company Button */}
           <button
             onClick={addCompany}
             className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
@@ -227,7 +207,6 @@ const AdminCompanyManagement = () => {
           </button>
         </div>
 
-        {/* List of Existing Companies */}
         <div>
           <h2 className="text-lg font-semibold mb-2">Existing Companies</h2>
           <table className="min-w-full border-collapse border border-gray-300">
@@ -246,7 +225,7 @@ const AdminCompanyManagement = () => {
                   <td className="border border-gray-300 px-4 py-2">
                     <button
                       onClick={() => deleteCompany(company.id)}
-                      className="bg-red-500 text-white px-4 py-1 rounded"
+                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
                     >
                       Delete
                     </button>
@@ -257,7 +236,6 @@ const AdminCompanyManagement = () => {
           </table>
         </div>
 
-        {/* Navigation to Communication Methods Page */}
         <div className="mt-4">
           <button
             onClick={() => navigate("/communicationmethod")}
@@ -272,3 +250,4 @@ const AdminCompanyManagement = () => {
 };
 
 export default AdminCompanyManagement;
+
