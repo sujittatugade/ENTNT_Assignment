@@ -1,66 +1,29 @@
-import { useState, useEffect } from 'react';
-import './App.css';
-import Navbar from './component/Navbar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Movie from './component/Movie';
-import Watchlist from './component/Watchlist';
-import Banneer from './component/Banneer';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import LoginPage from './components/LoginPage';
+
+import AdminCompanyManagement from './components/AdminModule/AdminCompanyManagment';
+import AdminCommunicationMethod from './components/AdminModule/AdminCommunicationMethod';
+import HomePage from './components/HomePage';
+import CalendarView from "./components/UserModule/CalendarView";
+
+import Notification from './components/UserModule/Notification';
+import UserDashboard from './components/UserModule/UserDashboard';
+
 
 function App() {
-  const [watchlist, setWatchlist] = useState([]);
-
-  const handleAddToWatchlist = (movieObj) => {
-    let newWatchlist = [...watchlist, movieObj];
-    localStorage.setItem('moviesApp', JSON.stringify(newWatchlist));
-    setWatchlist(newWatchlist);
-    console.log(newWatchlist);
-  };
-
-  const handleRemoveFromWatchlist = (movieObj) => {
-    const filteredWatchlist = watchlist.filter((movie) => movie.id !== movieObj.id);
-    setWatchlist(filteredWatchlist);
-    localStorage.setItem('moviesApp', JSON.stringify(filteredWatchlist));
-  };
-  
-  useEffect(() => {
-    // Load watchlist from localStorage on component mount
-    const moviesFromLocalStorage = localStorage.getItem("moviesApp");
-    if (moviesFromLocalStorage) {
-      setWatchlist(JSON.parse(moviesFromLocalStorage));
-    }
-  }, []);
-
   return (
-    <>
-      <BrowserRouter>
-        <Navbar />
+    
         <Routes>
-          <Route 
-            path='/' 
-            element={
-              <>
-                <Banneer />
-                <Movie 
-                  handleaddtoatchlist={handleAddToWatchlist} 
-                  handleremovefromwatchlist={handleRemoveFromWatchlist} 
-                  watchlist={watchlist} 
-                />
-              </>
-            } 
-          />
-          <Route 
-            path='/watchlist' 
-            element={
-              <Watchlist 
-                watchlist={watchlist} 
-                handleremovefromwatchlist={handleRemoveFromWatchlist} 
-              />
-            } 
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<AdminCompanyManagement />} />
+          <Route path="/communicationmethod" element={<AdminCommunicationMethod/>} />
+          <Route path="/notification" element={<Notification/>} />
+          <Route path="/calendarview" element={<CalendarView/>} />
+          <Route path='/userdashboard' element={<UserDashboard/>}/>
         </Routes>
-      </BrowserRouter>
-    </>
-  );
+      );
 }
 
 export default App;

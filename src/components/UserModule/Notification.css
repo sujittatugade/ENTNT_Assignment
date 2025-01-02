@@ -1,0 +1,111 @@
+/* Notification Styling */
+
+/* General Styles */
+.user-module {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Notifications Section */
+h2, h3 {
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fafafa;
+    margin: 8px 0;
+    padding: 10px;
+    border-left: 5px solid #ff4500;
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+/* Overdue Notification Highlight */
+.overdue {
+    background-color: #ffe6e6; /* Light red background for overdue communications */
+    border-left: 5px solid #ff4d4d; /* Red border to highlight */
+    color: #ff4d4d; /* Text color */
+}
+
+.overdue p {
+    font-weight: bold;
+}
+
+/* Styling for overdue notifications */
+.bg-red-100 {
+    background-color: #fef2f2; /* Light red background */
+}
+
+.p-2 {
+    padding: 0.5rem; /* Padding for the notification text */
+}
+
+.rounded {
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Styling for today's communications */
+.bg-yellow-100 {
+    background-color: #fef8e4; /* Light yellow background */
+}
+
+/* List Styling */
+.list-disc {
+    list-style-type: disc; /* Disc bullets */
+}
+
+.pl-6 {
+    padding-left: 1.5rem; /* Left padding for bullet points */
+}
+
+/* Text styling */
+.text-gray-500 {
+    color: #6b7280; /* Text color for no communications message */
+}
+
+.text-lg {
+    font-size: 1.125rem; /* Large text size */
+}
+
+.font-semibold {
+    font-weight: 600; /* Semibold font */
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem; /* Bottom margin */
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem; /* Small bottom margin */
+}
+
+.text-xl {
+    font-size: 1.25rem; /* Extra large text */
+}
+
+.font-bold {
+    font-weight: 700; /* Bold font */
+}
